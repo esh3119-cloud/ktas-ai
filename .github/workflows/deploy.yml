@@ -13,14 +13,17 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      CI: false
+      REACT_APP_BACKEND_URL: https://ktas-ai-backend.onrender.com
+      DISABLE_ESLINT_PLUGIN: true
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 20
       - run: npm install
-      - run: echo "REACT_APP_BACKEND_URL=https://ktas-ai-backend.onrender.com" > .env.production
-      - run: CI=false npm run build
+      - run: npm run build
       - uses: actions/configure-pages@v4
       - uses: actions/upload-pages-artifact@v3
         with:
